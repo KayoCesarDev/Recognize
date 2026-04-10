@@ -1,0 +1,26 @@
+{
+  "name": "FeedPost",
+  "type": "object",
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "description": "ID do perfil dono do post"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email do autor"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL da imagem do post"
+    },
+    "caption": {
+      "type": "string",
+      "description": "Legenda do post"
+    }
+  },
+  "required": [
+    "profile_id",
+    "image_url"
+  ]
+}

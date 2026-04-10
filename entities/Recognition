@@ -1,0 +1,41 @@
+{
+  "name": "Recognition",
+  "type": "object",
+  "properties": {
+    "from_email": {
+      "type": "string",
+      "description": "Email de quem deu o reconhecimento"
+    },
+    "to_profile_id": {
+      "type": "string",
+      "description": "ID do perfil reconhecido"
+    },
+    "to_name": {
+      "type": "string",
+      "description": "Nome da pessoa reconhecida"
+    },
+    "message": {
+      "type": "string",
+      "description": "Mensagem de reconhecimento"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "lideranca",
+        "comunidade",
+        "inovacao",
+        "solidariedade",
+        "cultura",
+        "esporte",
+        "educacao",
+        "empreendedorismo"
+      ],
+      "description": "Categoria do reconhecimento"
+    }
+  },
+  "required": [
+    "from_email",
+    "to_profile_id",
+    "category"
+  ]
+}

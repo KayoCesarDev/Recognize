@@ -1,0 +1,75 @@
+{
+  "name": "Profile",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Nome completo da pessoa"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Biografia curta"
+    },
+    "photo_url": {
+      "type": "string",
+      "description": "URL da foto de perfil"
+    },
+    "state": {
+      "type": "string",
+      "description": "Estado (UF)"
+    },
+    "city": {
+      "type": "string",
+      "description": "Cidade"
+    },
+    "profession": {
+      "type": "string",
+      "description": "Profiss\u00e3o ou \u00e1rea de atua\u00e7\u00e3o"
+    },
+    "recognition_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Total de reconhecimentos recebidos"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email do usu\u00e1rio vinculado"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false,
+      "description": "Perfil verificado pelo admin manualmente"
+    },
+    "verified_paid": {
+      "type": "boolean",
+      "default": false,
+      "description": "Verifica\u00e7\u00e3o paga (R$35)"
+    },
+    "verification_requested": {
+      "type": "boolean",
+      "default": false,
+      "description": "Usu\u00e1rio solicitou verifica\u00e7\u00e3o paga e pagamento confirmado"
+    },
+    "verification_justification": {
+      "type": "string",
+      "description": "Justificativa da solicita\u00e7\u00e3o de verifica\u00e7\u00e3o"
+    },
+    "verification_links": {
+      "type": "string",
+      "description": "Links de redes sociais ou m\u00eddia para comprovar autenticidade"
+    },
+    "instagram": {
+      "type": "string",
+      "description": "Perfil do Instagram (@usuario)"
+    },
+    "linkedin": {
+      "type": "string",
+      "description": "URL do LinkedIn"
+    }
+  },
+  "required": [
+    "full_name",
+    "state",
+    "city"
+  ]
+}
