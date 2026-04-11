@@ -2,15 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://reconhece-local-top.base44.app/api/:path*"
-    },
-    {
-      "source": "/ws-user-apps/socket.io/:path*",
-      "destination": "https://reconhece-local-top.base44.app/ws-user-apps/socket.io/:path*"
-    },
-    {
-      "source": "^/(?!api/|assets/|favicon\\.svg$|manifest\\.json$|ws-user-apps/socket\\.io/).*$",
+      "source": "/((?!api/|app-logs/|assets/|favicon.svg|manifest.json).*)",
       "destination": "/index.html"
     }
   ]
