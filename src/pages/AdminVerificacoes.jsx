@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import VerifiedBadge from '@/components/verification/VerifiedBadge';
+import { ensureArray } from '@/lib/utils';
 
 export default function AdminVerificacoes() {
   const queryClient = useQueryClient();
@@ -19,10 +20,11 @@ export default function AdminVerificacoes() {
     queryFn: () => base44.auth.me(),
   });
 
-  const { data: profiles = [], isLoading } = useQuery({
+  const { data: profilesData = [], isLoading } = useQuery({
     queryKey: ['profiles'],
     queryFn: () => base44.entities.Profile.list('-recognition_count', 500),
   });
+  const profiles = ensureArray(profilesData);
 
   if (user && user.role !== 'admin') {
     return (

@@ -5,5 +5,8 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs))
 } 
 
+export function ensureArray(value) {
+  return Array.isArray(value) ? value : []
+}
 
 export const isIframe = window.self !== window.top;

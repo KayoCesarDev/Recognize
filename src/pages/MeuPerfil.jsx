@@ -16,6 +16,7 @@ import RequestVerificationButton from '@/components/verification/RequestVerifica
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
+import { ensureArray } from '@/lib/utils';
 
 const STATES = [
   'AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA',
@@ -42,11 +43,12 @@ export default function MeuPerfil() {
     queryFn: () => base44.auth.me(),
   });
 
-  const { data: profiles = [], isLoading } = useQuery({
+  const { data: profilesData, isLoading } = useQuery({
     queryKey: ['profiles'],
     queryFn: () => base44.entities.Profile.list('-recognition_count', 500),
     enabled: !!user,
   });
+  const profiles = ensureArray(profilesData);
 
   const myProfile = profiles.find(p => p.user_email === user?.email);
 
@@ -100,11 +102,12 @@ export default function MeuPerfil() {
   // Find rank
   const myRank = myProfile ? profiles.findIndex(p => p.id === myProfile.id) + 1 : null;
 
-  const { data: myFeedPosts = [], isLoading: loadingFeed } = useQuery({
+  const { data: myFeedPostsData = [], isLoading: loadingFeed } = useQuery({
     queryKey: ['feedposts', myProfile?.id],
     queryFn: () => base44.entities.FeedPost.filter({ profile_id: myProfile.id }, '-created_date', 100),
     enabled: !!myProfile?.id,
   });
+  const myFeedPosts = ensureArray(myFeedPostsData);
 
   if (isLoading) {
     return (

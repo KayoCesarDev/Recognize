@@ -8,6 +8,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import VerifiedBadge from '@/components/verification/VerifiedBadge';
+import { ensureArray } from '@/lib/utils';
 
 function StatCard({ icon: Icon, label, value, color }) {
   return (
@@ -28,10 +29,11 @@ function StatCard({ icon: Icon, label, value, color }) {
 }
 
 export default function Home() {
-  const { data: profiles = [], isLoading } = useQuery({
+  const { data: profilesData, isLoading } = useQuery({
     queryKey: ['profiles'],
     queryFn: () => base44.entities.Profile.list('-recognition_count', 100),
   });
+  const profiles = ensureArray(profilesData);
 
   const topProfiles = profiles.slice(0, 5);
   const uniqueStates = [...new Set(profiles.map(p => p.state).filter(Boolean))];

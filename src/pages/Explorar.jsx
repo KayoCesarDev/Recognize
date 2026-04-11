@@ -10,16 +10,18 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import LocationFilter from '@/components/ranking/LocationFilter';
 import VerifiedBadge from '@/components/verification/VerifiedBadge';
+import { ensureArray } from '@/lib/utils';
 
 export default function Explorar() {
   const [search, setSearch] = useState('');
   const [selectedState, setSelectedState] = useState('all');
   const [selectedCity, setSelectedCity] = useState('all');
 
-  const { data: profiles = [], isLoading } = useQuery({
+  const { data: profilesData, isLoading } = useQuery({
     queryKey: ['profiles'],
     queryFn: () => base44.entities.Profile.list('-recognition_count', 500),
   });
+  const profiles = ensureArray(profilesData);
 
   const cities = useMemo(() => {
     if (selectedState === 'all') return [];

@@ -15,6 +15,7 @@ import FeedGrid from '@/components/feed/FeedGrid';
 import VerifiedBadge from '@/components/verification/VerifiedBadge';
 import RequestVerificationButton from '@/components/verification/RequestVerificationButton';
 import { Instagram, Linkedin } from 'lucide-react';
+import { ensureArray } from '@/lib/utils';
 
 const categoryLabels = {
   lideranca: '🏅 Liderança',
@@ -39,26 +40,29 @@ export default function PerfilPublico() {
     queryFn: () => base44.auth.me(),
   });
 
-  const { data: profiles = [] } = useQuery({
+  const { data: profilesData = [] } = useQuery({
     queryKey: ['profiles'],
     queryFn: () => base44.entities.Profile.list('-recognition_count', 500),
   });
+  const profiles = ensureArray(profilesData);
 
   const profile = profiles.find(p => p.id === profileId);
   const rank = profile ? profiles.findIndex(p => p.id === profile.id) + 1 : null;
   const isOwnProfile = profile && user && profile.user_email === user.email;
 
-  const { data: recognitions = [], isLoading: loadingRecognitions } = useQuery({
+  const { data: recognitionsData = [], isLoading: loadingRecognitions } = useQuery({
     queryKey: ['recognitions', profileId],
     queryFn: () => base44.entities.Recognition.filter({ to_profile_id: profileId }, '-created_date', 50),
     enabled: !!profileId,
   });
+  const recognitions = ensureArray(recognitionsData);
 
-  const { data: feedPosts = [] } = useQuery({
+  const { data: feedPostsData = [] } = useQuery({
     queryKey: ['feedposts', profileId],
     queryFn: () => base44.entities.FeedPost.filter({ profile_id: profileId }, '-created_date', 100),
     enabled: !!profileId,
   });
+  const feedPosts = ensureArray(feedPostsData);
 
   if (!profile) {
     return (

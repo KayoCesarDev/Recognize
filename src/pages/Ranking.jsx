@@ -6,15 +6,17 @@ import { Skeleton } from '@/components/ui/skeleton';
 import RankingPodium from '@/components/ranking/RankingPodium';
 import RankingListItem from '@/components/ranking/RankingListItem';
 import LocationFilter from '@/components/ranking/LocationFilter';
+import { ensureArray } from '@/lib/utils';
 
 export default function Ranking() {
   const [selectedState, setSelectedState] = useState('all');
   const [selectedCity, setSelectedCity] = useState('all');
 
-  const { data: profiles = [], isLoading } = useQuery({
+  const { data: profilesData, isLoading } = useQuery({
     queryKey: ['profiles'],
     queryFn: () => base44.entities.Profile.list('-recognition_count', 500),
   });
+  const profiles = ensureArray(profilesData);
 
   const filteredProfiles = useMemo(() => {
     return profiles.filter(p => {
